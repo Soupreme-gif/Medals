@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 
 class Country extends Component {
-    state = { 
-        name: "Turkey",
-        gold: 0,
-     } 
 
-     handleIncrement = () => {
+    state = {
+        name: this.props.country.name,
+        goldMedalCount: this.props.country.goldMedalCount,
+      }
 
-        this.setState({ gold: this.state.gold + 1 })
+      handleIncrement = () => {
+
+        this.setState({ goldMedalCount: this.state.goldMedalCount + 1 })
+
+     }
+
+     handleDecrease = () => {
+
+        this.setState({ goldMedalCount: this.state.goldMedalCount - 1 })
 
      }
 
     render() { 
+
         return (
         <div>
             <div>
@@ -20,7 +28,12 @@ class Country extends Component {
             </div>
 
             <div>
-                <p>Gold Medals: { this.state.gold } <button onClick={ this.handleIncrement }>Give Gold</button></p>
+                <p>Gold Medals: { this.state.goldMedalCount } 
+                <button className='gold' onClick={ this.handleIncrement }>Give Gold</button>
+
+                {/* where this method of conditional rendering came from https://www.freecodecamp.org/news/react-conditional-rendering/ */}
+               {this.state.goldMedalCount !== 0 && <button className='gold' onClick={ this.handleDecrease }>Remove Gold</button>}
+                </p>
             </div>
         </div>);
     }
