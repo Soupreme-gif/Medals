@@ -7,34 +7,48 @@ class App extends Component {
 
   state = {
     countries: [
-      { id: 1, name: 'United States', goldMedalCount: 1},
-      { id: 2, name: 'China', goldMedalCount: 3},
-      { id: 3, name: 'Germany', goldMedalCount: 0 },
+      { id: 1, name: 'United States', gold: 1, silver: 2, bronze: 1},
+      { id: 2, name: 'China', gold: 3, silver: 1, bronze: 0 },
+      { id: 3, name: 'Germany', gold: 0, silver: 3, bronze: 1  },
+    ],
+    medals: [
+      { id: 1, type: 'gold' },
+      { id: 2, type: 'silver' },
+      { id: 3, type: 'bronze' },
     ]
   }
 
-  handleIncrement = (countryId) => {
+  handleIncrement = (countryId, medalType) => {
 
-    const countriesCopy = [...this.state.countries];
+    const countryCopy = [ ...this.state.countries ];
 
-    const idx = countriesCopy.findIndex((c) => c.id === countryId)
+    const idx = countryCopy.findIndex(c => c.id === countryId);
 
-    countriesCopy[idx].goldMedalCount += 1;
+    countryCopy[idx][medalType] += 1;
 
-    this.setState({countriesCopy:this.state.countries})
+    this.setState({ countryCopy: this.state.countries });
 
- }
+  }
 
- handleDecrease = (countryId) => {
+ handleDecrease = (countryId, medalType) => {
 
-  const countriesCopy = [...this.state.countries];
+  const countryCopy = [ ...this.state.countries ];
 
-    const idx = countriesCopy.findIndex((c) => c.id === countryId)
+  const idx = countryCopy.findIndex(c => c.id === countryId);
 
-    countriesCopy[idx].goldMedalCount -= 1;
+  countryCopy[idx][medalType] -= 1;
 
-    this.setState({countriesCopy:this.state.countries})
+  this.setState({ countryCopy: this.state.countries });
 
+}
+
+getAllMedalsTotal() {
+
+  let total = 0;
+
+  this.state.medals.forEach(medal => { total += this.state.countries.reduce((a, b) => a + b[medal.type], 0); });
+
+  return total;
 }
 
   render() {
@@ -42,6 +56,7 @@ class App extends Component {
   return (
     <div className="App">
       <header className="App-header">
+        <div>Olympic Medals: {this.getAllMedalsTotal()}</div>
       </header>
       {this.state.countries.map(country =>
         <Country 
@@ -49,6 +64,7 @@ class App extends Component {
         country = { country }
         onIncrement = { this.handleIncrement }
         onDecrease = { this.handleDecrease }
+        medals={ this.state.medals }
        />
       )}
     </div>

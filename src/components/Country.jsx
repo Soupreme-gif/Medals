@@ -1,26 +1,37 @@
 import React, { Component } from 'react';
+import Medal from './Medal';
 
 class Country extends Component {
 
+    getTotalMedals(country, medals) {
+
+        let total = 0;
+
+        medals.forEach(medal => { total += country[medal.type]; });
+
+        return total;
+
+      }
+
     render() { 
 
-        const {country, onIncrement, onDecrease} = this.props;
+        const {country, onIncrement, onDecrease, medals} = this.props;
 
         return (
 
         <div>
             <div>
                 <h1>{ country.name }</h1>
+                <p> Medal Total: { this.getTotalMedals(country, medals) } </p>
             </div>
-
-            <div>
-                <p>Gold Medals: { country.goldMedalCount } 
-                <button className='gold' onClick={ () => onIncrement(country.id) }>Give Gold</button>
-
-                {/* where this method of conditional rendering came from https://www.freecodecamp.org/news/react-conditional-rendering/ */}
-               {country.goldMedalCount !== 0 && <button className='gold' onClick={ () => onDecrease(country.id) }>Remove Gold</button>}
-                </p>
-            </div>
+            { medals.map(medals =>
+          <Medal 
+            key={ medals.id } 
+            country={ country } 
+            medals={ medals } 
+            onIncrement={ onIncrement } 
+            onDecrease={ onDecrease } />
+        ) }
         </div>);
 
     }
