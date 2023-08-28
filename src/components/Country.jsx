@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 
 class Country extends Component {
 
-    state = {
-        name: this.props.country.name,
-        goldMedalCount: this.props.country.goldMedalCount,
-      }
-
     render() { 
 
         const {country, onIncrement, onDecrease} = this.props;
