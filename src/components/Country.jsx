@@ -15,7 +15,7 @@ class Country extends Component {
 
     render() { 
 
-        const {country, onIncrement, onDecrease, medals} = this.props;
+        const {country, onIncrement, onDecrease, medals, onDelete} = this.props;
 
         return (
 
@@ -32,6 +32,7 @@ class Country extends Component {
             onIncrement={ onIncrement } 
             onDecrease={ onDecrease } />
         ) }
+        <button className='delete' onClick={() => onDelete(country.id)}>Delete Country</button>
         </div>);
 
     }

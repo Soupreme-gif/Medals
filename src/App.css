@@ -27,6 +27,14 @@
   margin-right: 5px;
 }
 
+.country {
+  margin-top: 20px;
+}
+
+.delete {
+  margin-top: 30px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,6 +1,7 @@
 
 import { Component } from 'react';
 import Country from './components/Country';
+import NewCountry from './components/NewCountry';
 import './App.css'
 
 class App extends Component {
@@ -16,6 +17,20 @@ class App extends Component {
       { id: 2, type: 'silver' },
       { id: 3, type: 'bronze' },
     ]
+  }
+
+  handleAdd = (name) => {
+
+    const { countries } = this.state;
+    const id = countries.length === 0 ? 1 : Math.max(...countries.map(country => country.id)) + 1;
+    const countriesCopy = [...countries].concat({ id: id, name: name, gold: 0, silver: 0, bronze: 0});
+    this.setState({ countries: countriesCopy });
+    
+    }
+
+  handleDelete = (countryId) => {
+    const countries = this.state.countries.filter(c => c.id !== countryId);
+  this.setState({ countries:countries });
   }
 
   handleIncrement = (countryId, medalType) => {
@@ -58,12 +73,14 @@ getAllMedalsTotal() {
       <header className="App-header">
         <div>Olympic Medals: {this.getAllMedalsTotal()}</div>
       </header>
+      <NewCountry onSubmission={ this.handleAdd } />
       {this.state.countries.map(country =>
         <Country 
         key = { country.id }
         country = { country }
         onIncrement = { this.handleIncrement }
         onDecrease = { this.handleDecrease }
+        onDelete = { this.handleDelete }
         medals={ this.state.medals }
        />
       )}
