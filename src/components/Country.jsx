@@ -1,21 +1,18 @@
 import React from 'react';
 import Medal from './Medal';
-import { TrashFill } from 'react-bootstrap-icons';
+import { TrashFill, Save, ArrowCounterclockwise } from 'react-bootstrap-icons';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 const Country = (props) => {
-
   const { country, medals, onIncrement, onDecrement, onDelete, onSave, onReset } = props;
-
   const getMedalsTotal = (country, medals) => {
     let sum = 0;
-     // use medal count displayed in the web page for medal count totals
-     medals.forEach(medal => { sum += country[medal.name].page_value; });
-     return sum;
+    // use medal count displayed in the web page for medal count totals
+    medals.forEach(medal => { sum += country[medal.name].page_value; });
+    return sum;
   }
-
   const renderSaveButton = () => {
     let unsaved = false;
     medals.forEach(medal => {
@@ -25,7 +22,6 @@ const Country = (props) => {
     });
     return unsaved;
   }
-
   return (
     <Card>
       <Card.Body>
@@ -36,13 +32,13 @@ const Country = (props) => {
             { getMedalsTotal(country, medals) }
           </Badge>
           </span>
-           {/* this will render save/reset buttons if the page/saved medal counts are not equal
+          {/* this will render save/reset buttons if the page/saved medal counts are not equal
           otherewise, the delete country button will be rendered */}
           { renderSaveButton() ?
             <React.Fragment>
               {/* TODO: use Bootstrap stying / icons */}
-              <button onClick={ () => onSave(country.id) }>save</button>
-              <button onClick={ () => onReset(country.id) }>reset</button>
+              <ArrowCounterclockwise onClick={ () => onReset(country.id) } className='icon-btn' />
+              <Save onClick={ () => onSave(country.id) } className='icon-btn' />
             </React.Fragment>
             :
             <TrashFill onClick={() => onDelete(country.id)} className='icon-btn' style={{ color:'red' }} />
