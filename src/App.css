@@ -1,7 +1,6 @@
 .medal-count {
   user-select:none;
 }
-
 .btn:focus {
   outline: none;
   box-shadow: none;
@@ -12,7 +11,9 @@
 .icon-btn:hover {
   opacity: .5;
 }
-
+.card {
+  width: 22rem;
+}
 .btn-close {
   box-sizing: content-box;
   width: 1em;
@@ -24,7 +25,6 @@
   border-radius: .25rem;
   opacity: .5;
 }
-
 .delta {
   color: red;
   font-style: italic;
